@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/STATUS-EN%20DESARROLLO-blue">
 </p>
 
-Simulador educativo de planificación de procesos que implementa algoritmos **no apropiativos** y **apropiativos**. Permite capturar procesos manualmente o cargarlos desde archivo, seleccionar el algoritmo de planificación, visualizar resultados y guardar los cálculos en un archivo de reporte. Incluye una sección "Acerca de..." con información del equipo.
+Simulador educativo de planificación de procesos que implementa algoritmos **no apropiativos** y **apropiativos**. Permite capturar procesos manualmente o cargarlos desde archivo, seleccionar el algoritmo de planificación, visualizar resultados y guardar los cálculos en un archivo de reporte.
 
 ## 🔍 Características
 
