@@ -1,0 +1,65 @@
+# ================================================
+# Compilados de Java
+# ================================================
+*.class
+*.log
+
+# ================================================
+# Archivos empaquetados
+# ================================================
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# ================================================
+# Maven
+# ================================================
+target/
+!src/main/resources/
+!src/test/resources/
+
+# Archivos de configuración de Maven
+.settings/
+dependency-reduced-pom.xml
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# ================================================
+# IDEs
+# ================================================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# ================================================
+# Sistemas Operativos
+# ================================================
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
