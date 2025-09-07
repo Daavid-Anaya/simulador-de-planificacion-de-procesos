@@ -1,4 +1,4 @@
-package com.mycompany.scheduler;
+package com.mycompany.model.algortimos;
 
 import java.util.Comparator;
 

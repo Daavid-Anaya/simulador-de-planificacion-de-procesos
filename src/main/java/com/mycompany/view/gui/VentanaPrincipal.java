@@ -26,7 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import com.mycompany.model.Proceso;
-import com.mycompany.scheduler.FCFS;
+import com.mycompany.model.algortimos.FCFS;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
 import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
 
