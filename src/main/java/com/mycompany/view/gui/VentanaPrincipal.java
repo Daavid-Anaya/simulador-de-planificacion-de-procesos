@@ -1,6 +1,9 @@
 package com.mycompany.view.gui;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.Color;
 
 import javax.swing.JFrame;
@@ -22,12 +25,17 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
+import com.mycompany.model.Procesos;
+import com.mycompany.view.manejoDeTablas.AgregarATabla;
 import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
 
 
-public class VentanaPrincipal extends JFrame {
-
+public class VentanaPrincipal extends JFrame{
 	private static final long serialVersionUID = 1L;
+
+	public static ArrayList<Procesos> listaProcesos = new ArrayList<>();
+	public static int cant = 0;
+
 	private JPanel panelContenido, panelAcciones, panelInfo, panelDiagrama;
 	private JMenuBar menuBar;
 	private JMenu Menu;
@@ -36,11 +44,10 @@ public class VentanaPrincipal extends JFrame {
 	private JTextField txtNombre, txtTiempoLlegada, tctDuracionRafaga, txtPrioridad, txtQuantum;
 	private JComboBox<String> comboBoxAlgoritmos;
 	private JButton btnIniciar, btnAgregar, btnLimpiar;
-	private DefaultTableModel modeloTablaInfo;
+	public static DefaultTableModel modeloTablaInfo, modeloTablaDiagrama[];
 	public static JTable[] tablaDiagrama;
 	private static JTable tableInfo;
 	private JScrollPane scrollTablaInfo, jsPanelDiagrama;
-	public static DefaultTableModel MD1, MD2[];
 	public static String[] columnTabla, columnDiagrama;
 	public static Object[][] dataTabla, dataDiagrama1, dataDiagrama2, dataDiagrama3;
 
@@ -179,6 +186,7 @@ public class VentanaPrincipal extends JFrame {
 	        btnAgregar = new JButton("Agregar");
 	        btnAgregar.setFont(new Font("Consolas", Font.BOLD, 12));
 	        btnAgregar.setBounds(894, 57, 90, 22);
+			btnAgregar.addActionListener(new manejadorBotonAgregar());
 	        panelAcciones.add(btnAgregar);
 	        
 	        btnIniciar = new JButton("Iniciar");
@@ -227,9 +235,7 @@ public class VentanaPrincipal extends JFrame {
 	        panelDiagrama = new JPanel();
 	        panelDiagrama.setBackground(new Color(44, 44, 59));
 	    	panelDiagrama.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Diagrama", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
-	    	//panelDiagrama.setBounds(10, 330, 1110, 190);
 	    	panelDiagrama.setLayout(null);
-	    	//panelContenido.add(panelDiagrama);
 	        
 	        // Tabla de diagrama //
 	        columnDiagrama = new String[] {"", "", "", "", "" ,"" ,"", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
@@ -237,15 +243,15 @@ public class VentanaPrincipal extends JFrame {
 	        dataDiagrama2 = new Object[][]{{"L", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}, {"U", "10", "", "11", "", "12", "", "13", "", "14", "", "15", "", "16", "", "17", "", "18", "", "19", ""}, {"E", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}};
 	        dataDiagrama3 = new Object[][]{{"L", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}, {"U", "20", "", "21", "", "22", "", "23", "", "24", "", "25", "", "26", "", "27", "", "28", "", "29", ""}, {"E", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""}};
 	    	
-	    	MD2 = new DefaultTableModel[3];
-	    	MD2[0] = new DefaultTableModel(dataDiagrama1, columnDiagrama);
-	    	MD2[1] = new DefaultTableModel(dataDiagrama2, columnDiagrama);
-	    	MD2[2] = new DefaultTableModel(dataDiagrama3, columnDiagrama);
+	    	modeloTablaDiagrama = new DefaultTableModel[3];
+	    	modeloTablaDiagrama[0] = new DefaultTableModel(dataDiagrama1, columnDiagrama);
+	    	modeloTablaDiagrama[1] = new DefaultTableModel(dataDiagrama2, columnDiagrama);
+	    	modeloTablaDiagrama[2] = new DefaultTableModel(dataDiagrama3, columnDiagrama);
 
 	    	tablaDiagrama = new JTable[3];
-	    	tablaDiagrama[0] = new JTable(MD2[0]);
-	    	tablaDiagrama[1] = new JTable(MD2[1]);
-	    	tablaDiagrama[2] = new JTable(MD2[2]);
+	    	tablaDiagrama[0] = new JTable(modeloTablaDiagrama[0]);
+	    	tablaDiagrama[1] = new JTable(modeloTablaDiagrama[1]);
+	    	tablaDiagrama[2] = new JTable(modeloTablaDiagrama[2]);
 
 	    	tablaDiagrama[0].setFont(new Font("Consolas", Font.PLAIN, 12));
 	    	tablaDiagrama[1].setFont(new Font("Consolas", Font.PLAIN, 12));
@@ -273,6 +279,26 @@ public class VentanaPrincipal extends JFrame {
 	    	panelContenido.add(jsPanelDiagrama);
 		} catch (Exception e) {
 	        JOptionPane.showMessageDialog(this, "Error al iniciar la interfaz: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+
+	public void limpiarCamposEntrada() {
+		txtNombre.setText("");
+		txtTiempoLlegada.setText("");
+		tctDuracionRafaga.setText("");
+		txtPrioridad.setText("");
+		txtQuantum.setText("");
+		comboBoxAlgoritmos.setSelectedIndex(0);
+		txtNombre.requestFocusInWindow();
+	}
+
+	// Clases internas que implementa ActionListener
+	// Agregar proceso
+	private class manejadorBotonAgregar implements ActionListener {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+				new AgregarATabla(txtNombre.getText(), txtTiempoLlegada.getText().trim(), tctDuracionRafaga.getText().trim(), txtPrioridad.getText().trim(), txtQuantum.getText().trim());
+				limpiarCamposEntrada();
 	    }
 	}
 }
