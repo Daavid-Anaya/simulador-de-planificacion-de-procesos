@@ -2,7 +2,7 @@ package com.mycompany.view.manejoDeTablas;
 
 import javax.swing.JOptionPane;
 
-import com.mycompany.model.Procesos;
+import com.mycompany.model.Proceso;
 import com.mycompany.model.ValidarEntradas;
 import com.mycompany.view.gui.VentanaPrincipal;
 
@@ -26,7 +26,7 @@ public class AgregarATabla {
 
     public final void agregarALista() {
         if (recogerDatos()) {
-            Procesos p = new Procesos(Nombre, llegada, rafaga, prioridad);
+            Proceso p = new Proceso(Nombre, llegada, rafaga, prioridad);
             VentanaPrincipal.listaProcesos.add(p);
 
             if(VentanaPrincipal.cant < 8) {

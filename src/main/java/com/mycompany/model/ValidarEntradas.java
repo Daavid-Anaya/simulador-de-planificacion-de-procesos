@@ -49,7 +49,7 @@ public class ValidarEntradas {
     }
 
     public boolean nombreRepetido(String nombre) {
-        for (Procesos p : VentanaPrincipal.listaProcesos) {
+        for (Proceso p : VentanaPrincipal.listaProcesos) {
             if (p.getNombre().equals(nombre)) {
                 return true; // El nombre ya existe en la lista
             }

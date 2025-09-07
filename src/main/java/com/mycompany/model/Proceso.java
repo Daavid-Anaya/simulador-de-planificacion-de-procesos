@@ -1,6 +1,6 @@
 package com.mycompany.model;
 
-public class Procesos {
+public class Proceso {
     // Atributos //
 	private String nombre; // Nombre proceso
     private int tiempoLlegada; // Tiempo de llegada (TII)
@@ -18,7 +18,7 @@ public class Procesos {
     public float tasaPenalizacion; // Tasa de penalización p = T/t
 
 	// Constructor con parámetros
-	public Procesos(String nombre, int llegada, int rafaga, int prioridad) {
+	public Proceso(String nombre, int llegada, int rafaga, int prioridad) {
 		this.nombre = nombre;
 		this.tiempoLlegada = llegada;
 		this.tiempoRafaga = rafaga;

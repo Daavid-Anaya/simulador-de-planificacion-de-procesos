@@ -25,7 +25,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
-import com.mycompany.model.Procesos;
+import com.mycompany.model.Proceso;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
 import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
 
@@ -33,7 +33,7 @@ import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
 public class VentanaPrincipal extends JFrame{
 	private static final long serialVersionUID = 1L;
 
-	public static ArrayList<Procesos> listaProcesos = new ArrayList<>();
+	public static ArrayList<Proceso> listaProcesos = new ArrayList<>();
 	public static int cant = 0;
 
 	private JPanel panelContenido, panelAcciones, panelInfo, panelDiagrama;
