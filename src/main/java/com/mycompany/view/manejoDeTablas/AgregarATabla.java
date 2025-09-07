@@ -79,8 +79,11 @@ public class AgregarATabla {
 
     public final void agregarAll(){
         new LimpiarTabla().limpiar();
-        for(int i = 0; i < VentanaPrincipal.listaProcesos.size(); i++) {
-            String vector[] = VentanaPrincipal.listaProcesos.get(i).toString().split(" ");
+        for (Proceso p : VentanaPrincipal.listaProcesos) {
+            String vector[] = {p.getNombre(), String.valueOf(p.getTiempoLlegada()), String.valueOf(p.getTiempoRafaga()),
+                String.valueOf(p.getPrioridad()), String.valueOf(p.getTiempoInicio()), String.valueOf(p.getTiempoFin()),
+                String.valueOf(p.getTiempoRetorno()), String.valueOf(p.getTiempoRespuesta()), String.format("%.2f", p.getTasaDesperdicio()),
+                String.format("%.2f", p.getTasaPenalizacion()),  String.valueOf(p.getTiempoEspera())};
             VentanaPrincipal.modeloTablaInfo.addRow(vector);
         }
     }

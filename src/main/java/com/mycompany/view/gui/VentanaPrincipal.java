@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import com.mycompany.model.Proceso;
+import com.mycompany.scheduler.FCFS;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
 import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
 
@@ -192,6 +193,7 @@ public class VentanaPrincipal extends JFrame{
 	        btnIniciar = new JButton("Iniciar");
 	        btnIniciar.setFont(new Font("Consolas", Font.BOLD, 12));
 	        btnIniciar.setBounds(894, 27, 190, 22);
+			btnIniciar.addActionListener(new manejadorBotonIniciar());
 	        panelAcciones.add(btnIniciar);
 	        
 	        btnLimpiar = new JButton("Limpiar");
@@ -208,22 +210,18 @@ public class VentanaPrincipal extends JFrame{
 	    	panelContenido.add(panelInfo);
 	        
 	        // Tablas //
-	        columnTabla = new String[] {"Procesos", "Tiempo llegada", "Duracion Rafaga", "Prioridad", "Tiempo Arranque", "Tiempo Finalizacion", "Tiempo Retorno", "Tiempo Respuesta", "Tiempo desperdicio", "Taza penalización", "Tiempo Espera"};
+	        columnTabla = new String[] {"Proceso", "Tiempo llegada", "Duración Rafaga", "Prioridad", "Tiempo Arranque", "Tiempo Finalización", "Tiempo Retorno", "Tiempo Respuesta", "Taza desperdicio", "Taza penalización", "Tiempo Espera"};
 	    	dataTabla = new Object[][] {{"", "", "", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", "", "", ""},
 	    								{"", "", "", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", "", "", ""},
 	    								{"", "", "", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", "", "", ""},
 	    								{"", "", "", "", "", "", "", "", "", "", ""}, {"", "", "", "", "", "", "", "", "", "", ""}};
 	    	
-	        modeloTablaInfo = new DefaultTableModel(dataTabla, columnTabla) {
-	            @Override
-	            public boolean isCellEditable(int row, int column) {
-	                return false;
-	            }
-	        };
+	        modeloTablaInfo = new DefaultTableModel(dataTabla, columnTabla);
 	        
 	        tableInfo = new JTable(modeloTablaInfo);
 	        tableInfo.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 	        tableInfo.setFont(new Font("Consolas", Font.PLAIN, 10));
+			tableInfo.setEnabled(false);
 	        tableInfo.getTableHeader().setReorderingAllowed(false);
 	        
 	        // Scroll //
@@ -300,5 +298,43 @@ public class VentanaPrincipal extends JFrame{
 				new AgregarATabla(txtNombre.getText(), txtTiempoLlegada.getText().trim(), tctDuracionRafaga.getText().trim(), txtPrioridad.getText().trim(), txtQuantum.getText().trim());
 				limpiarCamposEntrada();
 	    }
+	}
+
+	// Iniciar simulación
+	private class manejadorBotonIniciar implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (listaProcesos.size() > 0) {
+				String algoritmoSeleccionado = (String) comboBoxAlgoritmos.getSelectedItem();
+				switch (algoritmoSeleccionado) {
+					case "FIFO":
+						// Llamar al método para ejecutar el algoritmo FIFO
+						new FCFS().ejecutar();
+						break;
+					case "SJF":
+						// Llamar al método para ejecutar el algoritmo SJF
+						
+						break;
+					case "SRT":
+						// Llamar al método para ejecutar el algoritmo SRT
+						
+						break;
+					case "PRIORIDAD":
+						// Llamar al método para ejecutar el algoritmo PRIORIDAD
+						
+						break;
+					case "ROUND ROBIN":
+						// Llamar al método para ejecutar el algoritmo ROUND ROBIN
+						
+						break;
+					default:
+						
+						break;
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "No hay procesos agregados. Por favor, agregue al menos un proceso antes de iniciar la simulación.", "Información", JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
 	}
 }

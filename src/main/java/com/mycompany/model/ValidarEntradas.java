@@ -45,7 +45,7 @@ public class ValidarEntradas {
     }
 
     public boolean esValorNoNegativo(int llegada, int rafaga, int prioridad, int quantum) {
-        return (llegada >= 0 && rafaga  >= 0 && prioridad >= 0 && quantum >= 0);
+        return (llegada >= 0 && rafaga > 0 && prioridad >= 0 && quantum > 0);
     }
 
     public boolean nombreRepetido(String nombre) {
