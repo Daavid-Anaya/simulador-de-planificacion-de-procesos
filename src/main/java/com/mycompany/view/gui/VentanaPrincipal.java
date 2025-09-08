@@ -26,7 +26,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import com.mycompany.model.Proceso;
+import com.mycompany.model.ValidarEntradas;
 import com.mycompany.model.algortimos.FCFS;
+import com.mycompany.model.algortimos.RR;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
 import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
 
@@ -326,7 +328,12 @@ public class VentanaPrincipal extends JFrame{
 						break;
 					case "ROUND ROBIN":
 						// Llamar al método para ejecutar el algoritmo ROUND ROBIN
-						
+						String quantum = txtQuantum.getText().trim();
+						if (new ValidarEntradas().esQuantumValido(quantum)) {
+							new RR(Integer.parseInt(quantum)).ejecutar();
+						} else {
+							JOptionPane.showMessageDialog(null, "El valor del quantum no es válido. Por favor, ingrese un entero positivo.", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 						break;
 					default:
 						
