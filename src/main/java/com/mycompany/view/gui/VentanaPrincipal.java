@@ -295,7 +295,7 @@ public class VentanaPrincipal extends JFrame{
 	private class manejadorBotonAgregar implements ActionListener {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-				new AgregarATabla(txtNombre.getText(), txtTiempoLlegada.getText().trim(), tctDuracionRafaga.getText().trim(), txtPrioridad.getText().trim(), txtQuantum.getText().trim());
+				new AgregarATabla(txtNombre.getText(), txtTiempoLlegada.getText().trim(), tctDuracionRafaga.getText().trim(), txtPrioridad.getText().trim());
 				limpiarCamposEntrada();
 	    }
 	}

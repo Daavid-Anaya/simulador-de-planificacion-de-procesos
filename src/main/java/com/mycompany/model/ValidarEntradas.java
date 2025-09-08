@@ -33,19 +33,22 @@ public class ValidarEntradas {
 
     public boolean esQuantumValido(String quantum) {
         if (quantum.isEmpty()) {
-            quantum = "0";
-            return true; // El quantum es opcional, se considera válido si está vacío
+            return false; // La cadena esta vacía, se considera inválida
         }
         try {
-            Integer.parseInt(quantum);
-            return true; // La cadena es un entero válido
+            int q = Integer.parseInt(quantum);
+            if (q > 0) {
+                return true; // El entero es positivo
+            } else {
+                return false; // El entero no es positivo
+            }
         } catch (NumberFormatException e) {
             return false; // La cadena no es un entero válido
         }
     }
 
-    public boolean esValorNoNegativo(int llegada, int rafaga, int prioridad, int quantum) {
-        return (llegada >= 0 && rafaga > 0 && prioridad >= 0 && quantum > 0);
+    public boolean esValorNoNegativo(int llegada, int rafaga, int prioridad) {
+        return (llegada >= 0 && rafaga > 0 && prioridad >= 0);
     }
 
     public boolean nombreRepetido(String nombre) {

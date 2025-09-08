@@ -23,6 +23,7 @@ public class Proceso {
 		this.tiempoLlegada = llegada;
 		this.tiempoRafaga = rafaga;
 		this.prioridad = prioridad;
+        this.tiempoRestante = rafaga; // Inicialmente, el tiempo restante es igual a la ráfaga
 	}
 
     // Metododos getters y setters

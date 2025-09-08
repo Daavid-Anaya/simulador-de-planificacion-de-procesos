@@ -7,16 +7,15 @@ import com.mycompany.model.ValidarEntradas;
 import com.mycompany.view.gui.VentanaPrincipal;
 
 public class AgregarATabla {
-    public String Nombre, auxLlegada, auxRafaga, auxPrioridad, auxQuantum;
+    public String Nombre, auxLlegada, auxRafaga, auxPrioridad;
     public int llegada, rafaga, prioridad, quantum;
 
 
-    public AgregarATabla(String txtNombre, String txtLlegada, String txtRafaga, String txtPrioridad, String txtQuantum) {
+    public AgregarATabla(String txtNombre, String txtLlegada, String txtRafaga, String txtPrioridad) {
         this.Nombre = txtNombre;
         this.auxLlegada = txtLlegada;
         this.auxRafaga = txtRafaga;
         this.auxPrioridad = txtPrioridad;
-        this.auxQuantum = txtQuantum;
         agregarALista();
     }
 
@@ -49,12 +48,12 @@ public class AgregarATabla {
         } else if (!new ValidarEntradas().esEnteroValido(auxLlegada, auxRafaga)) {
             JOptionPane.showMessageDialog(null, "Error: La cadena no es un entero válido para los campos Tiempo de llegada o Duración de ráfaga.", "Error", JOptionPane.ERROR_MESSAGE);
             return false; 
+        } else if (new ValidarEntradas().esValorNoNegativo(llegada, rafaga, prioridad)) {
+            JOptionPane.showMessageDialog(null, "Error: Los valores de Tiempo de llegada, Duración de ráfaga y Prioridad deben ser no negativos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         } else if (new ValidarEntradas().esPrioridadValida(auxPrioridad) == false) {
             JOptionPane.showMessageDialog(null, "Error: La cadena no es un entero válido para el campo Prioridad.", "Error", JOptionPane.ERROR_MESSAGE);
             return false; 
-        } else if (new ValidarEntradas().esQuantumValido(auxQuantum) == false) {
-            JOptionPane.showMessageDialog(null, "Error: La cadena no es un entero válido para el campo Quantum.", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;  
         } else if (new ValidarEntradas().nombreRepetido(Nombre)) {
             JOptionPane.showMessageDialog(null, "Error: El nombre del proceso ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -66,12 +65,6 @@ public class AgregarATabla {
                 prioridad = Integer.parseInt(auxPrioridad);
             } else {
                 prioridad = 0;
-            }
-
-            if (!auxQuantum.equals("")) {
-                quantum = Integer.parseInt(auxQuantum);
-            } else {
-                quantum = 0;
             }
             return true;
         }
