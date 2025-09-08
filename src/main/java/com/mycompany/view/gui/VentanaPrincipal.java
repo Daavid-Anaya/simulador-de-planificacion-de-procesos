@@ -30,6 +30,7 @@ import com.mycompany.model.ValidarEntradas;
 import com.mycompany.model.algortimos.FCFS;
 import com.mycompany.model.algortimos.Prioridades;
 import com.mycompany.model.algortimos.RR;
+import com.mycompany.model.algortimos.SJF;
 import com.mycompany.model.algortimos.SRTF;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
 import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
@@ -318,7 +319,7 @@ public class VentanaPrincipal extends JFrame{
 						break;
 					case "SJF":
 						// Llamar al método para ejecutar el algoritmo SJF
-						
+						new SJF().ejecutar();
 						break;
 					case "SRT":
 						// Llamar al método para ejecutar el algoritmo SRT
