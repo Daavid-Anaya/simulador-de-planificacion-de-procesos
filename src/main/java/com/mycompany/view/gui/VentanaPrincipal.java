@@ -34,6 +34,7 @@ import com.mycompany.model.algortimos.SJF;
 import com.mycompany.model.algortimos.SRTF;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
 import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
+import com.mycompany.view.manejoDeTablas.LimpiarTabla;
 
 
 public class VentanaPrincipal extends JFrame{
@@ -42,7 +43,8 @@ public class VentanaPrincipal extends JFrame{
 	public static ArrayList<Proceso> listaProcesos = new ArrayList<>();
 	public static int cant = 0;
 
-	private JPanel panelContenido, panelAcciones, panelInfo, panelDiagrama;
+	private JPanel panelContenido, panelAcciones, panelInfo;
+	public static JPanel panelDiagrama;
 	private JMenuBar menuBar;
 	private JMenu Menu;
 	private JMenuItem menuItemAyuda, menuItemAtajos, menuItemAcerdaDe;
@@ -53,9 +55,10 @@ public class VentanaPrincipal extends JFrame{
 	public static DefaultTableModel modeloTablaInfo, modeloTablaDiagrama[];
 	public static JTable[] tablaDiagrama;
 	private static JTable tableInfo;
-	private JScrollPane scrollTablaInfo, jsPanelDiagrama;
-	public static String[] columnTabla, columnDiagrama;
-	public static Object[][] dataTabla, dataDiagrama1, dataDiagrama2, dataDiagrama3;
+	private JScrollPane scrollTablaInfo;
+    private static JScrollPane jsPanelDiagrama;
+	private static String[] columnTabla, columnDiagrama;
+	private static Object[][] dataTabla, dataDiagrama1, dataDiagrama2, dataDiagrama3;
 
 	public VentanaPrincipal() {
 		// Configuración de la ventana //
@@ -204,6 +207,7 @@ public class VentanaPrincipal extends JFrame{
 	        btnLimpiar = new JButton("Limpiar");
 	        btnLimpiar.setFont(new Font("Consolas", Font.BOLD, 12));
 	        btnLimpiar.setBounds(994, 57, 90, 22);
+			btnLimpiar.addActionListener(new manejadorBotonLimpiar());
 	        panelAcciones.add(btnLimpiar);
 	        
 	        // Panel información de los procesos //
@@ -290,9 +294,6 @@ public class VentanaPrincipal extends JFrame{
 		txtTiempoLlegada.setText("");
 		tctDuracionRafaga.setText("");
 		txtPrioridad.setText("");
-		txtQuantum.setText("");
-		comboBoxAlgoritmos.setSelectedIndex(0);
-		txtNombre.requestFocusInWindow();
 	}
 
 	// Clases internas que implementa ActionListener
@@ -346,5 +347,18 @@ public class VentanaPrincipal extends JFrame{
 				JOptionPane.showMessageDialog(null, "No hay procesos agregados. Por favor, agregue al menos un proceso antes de iniciar la simulación.", "Información", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
+	}
+
+	private class manejadorBotonLimpiar implements ActionListener {
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+			// Limpiar la lista de procesos y la tabla
+			listaProcesos.clear();
+			cant = 0;
+			txtQuantum.setText("");
+			comboBoxAlgoritmos.setSelectedIndex(0);
+			limpiarCamposEntrada();
+			new LimpiarTabla().limpiar();
+	    }
 	}
 }
