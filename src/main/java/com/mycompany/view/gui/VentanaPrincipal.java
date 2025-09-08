@@ -28,6 +28,7 @@ import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import com.mycompany.model.Proceso;
 import com.mycompany.model.ValidarEntradas;
 import com.mycompany.model.algortimos.FCFS;
+import com.mycompany.model.algortimos.Prioridades;
 import com.mycompany.model.algortimos.RR;
 import com.mycompany.model.algortimos.SRTF;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
@@ -325,7 +326,7 @@ public class VentanaPrincipal extends JFrame{
 						break;
 					case "PRIORIDAD":
 						// Llamar al método para ejecutar el algoritmo PRIORIDAD
-						
+						new Prioridades().ejecutar();
 						break;
 					case "ROUND ROBIN":
 						// Llamar al método para ejecutar el algoritmo ROUND ROBIN
