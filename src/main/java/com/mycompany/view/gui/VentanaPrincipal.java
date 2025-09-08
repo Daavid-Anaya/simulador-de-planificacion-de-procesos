@@ -29,6 +29,7 @@ import com.mycompany.model.Proceso;
 import com.mycompany.model.ValidarEntradas;
 import com.mycompany.model.algortimos.FCFS;
 import com.mycompany.model.algortimos.RR;
+import com.mycompany.model.algortimos.SRTF;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
 import com.mycompany.view.manejoDeTablas.FormatoDiagrama;
 
@@ -320,7 +321,7 @@ public class VentanaPrincipal extends JFrame{
 						break;
 					case "SRT":
 						// Llamar al método para ejecutar el algoritmo SRT
-						
+						new SRTF().ejecutar();
 						break;
 					case "PRIORIDAD":
 						// Llamar al método para ejecutar el algoritmo PRIORIDAD
