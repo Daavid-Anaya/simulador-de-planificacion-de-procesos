@@ -6,10 +6,13 @@ import java.util.List;
 
 import com.mycompany.model.Proceso;
 import com.mycompany.view.gui.VentanaPrincipal;
+import com.mycompany.view.manejoDeTablas.AgregarADiagrama;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
+import com.mycompany.view.manejoDeTablas.Modulo;
 
 public class SRTF {
     public void ejecutar() {
+        ArrayList<Modulo> listModulo = new ArrayList<>();
         List<Proceso> resultado = new ArrayList<>();
         List<Proceso> terminados = new ArrayList<>();
 
@@ -39,6 +42,11 @@ public class SRTF {
 
             // Ejecutar 1 unidad de tiempo
             actual.setTiempoRestante(actual.getTiempoRestante() - 1);
+
+            // Llenar diagrama de Gantt
+            listModulo.add(new Modulo(tiempoActual));
+            listModulo.add(new Modulo(actual.getNombre()));
+
             tiempoActual++;
 
             // Si terminó, calcular métricas
@@ -52,6 +60,12 @@ public class SRTF {
 
                 terminados.add(actual);
                 resultado.remove(actual);
+
+                for(Modulo modulo : listModulo) {
+                    if(modulo.u == actual.getTiempoLlegada()) {
+                        modulo.l = actual.getNombre();
+                    }
+                }
             }
         }
 
@@ -59,5 +73,6 @@ public class SRTF {
         VentanaPrincipal.listaProcesos.addAll(terminados);
         VentanaPrincipal.listaProcesos.sort(Comparator.comparingInt(Proceso::getTiempoLlegada));
         new AgregarATabla();
+        new AgregarADiagrama(listModulo, tiempoActual);
     }
 }

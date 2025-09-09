@@ -6,11 +6,15 @@ import java.util.List;
 
 import com.mycompany.model.Proceso;
 import com.mycompany.view.gui.VentanaPrincipal;
+import com.mycompany.view.manejoDeTablas.AgregarADiagrama;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
+import com.mycompany.view.manejoDeTablas.Modulo;
 
 public class Prioridades {
     
     public void ejecutar() {
+        ArrayList<Modulo> listModulo = new ArrayList<>();
+        int cont = 0;
         List<Proceso> listos = new ArrayList<>();
         List<Proceso> terminados = new ArrayList<>();
 
@@ -51,6 +55,20 @@ public class Prioridades {
                 actual.setTasaPenalizacion((float)actual.getTiempoRetorno() / (float)actual.getTiempoRafaga());
                 terminados.add(actual);
                 listos.remove(actual);
+
+                // Llenar diagrama de Gantt
+                cont = actual.getTiempoInicio();
+                for(int i = cont; i < actual.getTiempoFin(); i++) {
+                    listModulo.add(new Modulo(i));
+                    listModulo.add(new Modulo(actual.getNombre()));
+                }
+
+                for(Modulo modulo : listModulo) {
+                    if(modulo.u == actual.getTiempoLlegada()) {
+                        modulo.l = actual.getNombre();
+                    }
+                }
+                cont = actual.getTiempoFin();
             }
         }
 
@@ -58,5 +76,6 @@ public class Prioridades {
         VentanaPrincipal.listaProcesos.addAll(terminados);
         VentanaPrincipal.listaProcesos.sort(Comparator.comparingInt(Proceso::getTiempoLlegada));
         new AgregarATabla();
+        new AgregarADiagrama(listModulo, tiempoActual);
     }
 }

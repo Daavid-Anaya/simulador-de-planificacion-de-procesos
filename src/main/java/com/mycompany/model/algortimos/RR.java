@@ -8,7 +8,9 @@ import java.util.Queue;
 
 import com.mycompany.model.Proceso;
 import com.mycompany.view.gui.VentanaPrincipal;
+import com.mycompany.view.manejoDeTablas.AgregarADiagrama;
 import com.mycompany.view.manejoDeTablas.AgregarATabla;
+import com.mycompany.view.manejoDeTablas.Modulo;
 
 public class RR {
     private int quantum;
@@ -18,6 +20,8 @@ public class RR {
     }
 
     public void ejecutar() {
+        ArrayList<Modulo> listModulo = new ArrayList<>();
+        int cont = 0;
         List<Proceso> terminados = new ArrayList<>();
         Queue<Proceso> cola = new LinkedList<>();
 
@@ -45,6 +49,12 @@ public class RR {
 
             int tiempoEjecucion = Math.min(quantum, actual.getTiempoRestante());
             actual.setTiempoRestante(actual.getTiempoRestante() - tiempoEjecucion);
+            // Llenar diagrama de Gantt
+            cont = tiempoActual;
+            for(int i = cont; i < quantum + tiempoActual; i++) {
+                listModulo.add(new Modulo(i));
+                listModulo.add(new Modulo(actual.getNombre()));
+            }
             tiempoActual += tiempoEjecucion;
 
             // Agregar procesos que llegaron durante la ejecución
@@ -65,6 +75,12 @@ public class RR {
                 actual.setTasaDesperdicio((float)actual.getTiempoEspera() / (float)actual.getTiempoRetorno());
                 actual.setTasaPenalizacion((float)actual.getTiempoRetorno() / (float)actual.getTiempoRafaga());
                 terminados.add(actual);
+
+                for(Modulo modulo : listModulo) {
+                    if(modulo.u == actual.getTiempoLlegada()) {
+                        modulo.l = actual.getNombre();
+                    }
+                }
             }
         }
 
@@ -72,5 +88,6 @@ public class RR {
         VentanaPrincipal.listaProcesos.addAll(terminados);
         VentanaPrincipal.listaProcesos.sort(Comparator.comparingInt(Proceso::getTiempoLlegada));
         new AgregarATabla();
+        new AgregarADiagrama(listModulo, tiempoActual);
     }
 }
