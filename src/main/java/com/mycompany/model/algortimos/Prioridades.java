@@ -18,6 +18,11 @@ public class Prioridades {
         List<Proceso> listos = new ArrayList<>();
         List<Proceso> terminados = new ArrayList<>();
 
+        for (Proceso procesos : VentanaPrincipal.listaProcesos) {
+            procesos.setTiempoRestante(procesos.getTiempoRafaga());
+        }
+
+        // Ordenar por tiempo de llegada
         VentanaPrincipal.listaProcesos.sort(Comparator.comparingInt(Proceso::getTiempoLlegada));
 
         int tiempoActual = 0;

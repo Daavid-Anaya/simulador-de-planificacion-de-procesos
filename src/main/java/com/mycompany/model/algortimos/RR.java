@@ -25,6 +25,10 @@ public class RR {
         List<Proceso> terminados = new ArrayList<>();
         Queue<Proceso> cola = new LinkedList<>();
 
+        for (Proceso procesos : VentanaPrincipal.listaProcesos) {
+            procesos.setTiempoRestante(procesos.getTiempoRafaga());
+        }
+
         // Ordenar por tiempo de llegada
         VentanaPrincipal.listaProcesos.sort(Comparator.comparingInt(Proceso::getTiempoLlegada));
 
